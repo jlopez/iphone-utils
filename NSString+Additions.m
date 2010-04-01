@@ -14,6 +14,17 @@
 @implementation NSString (JLAdditions)
 
 
++ (NSString *)stringWithValue:(id)value {
+  if (!value || value == [NSNull null])
+    return nil;
+  if ([value isKindOfClass:[NSString class]])
+    return value;
+  if ([value respondsToSelector:@selector(stringValue)])
+    return [value stringValue];
+  return [value description];
+}
+
+
 - (NSString *)stringByEncodingURLParameter {
   NSString *pass1 = (id)CFURLCreateStringByAddingPercentEscapes(0, (CFStringRef)self, CFSTR(" "), CFSTR("?=&+"), kCFStringEncodingUTF8);
   NSString *pass2 = [pass1 stringByReplacingOccurrencesOfString:@" " withString:@"+"];
@@ -370,6 +381,55 @@ static NSMutableDictionary *htmlEntityMap = nil;
   return array;
 }
 
+
+- (NSDate *)dateValue {
+  return [NSDate dateFromISO8601String:self];
+}
+
+
+- (NSArray *)componentsSeparatedByString:(NSString *)separator limit:(NSUInteger)limit {
+  if (limit == 0)
+    return [NSArray array];
+  if (limit == 1)
+    return [NSArray arrayWithObject:self];
+  NSMutableArray *array = [NSMutableArray arrayWithCapacity:limit];
+  NSUInteger length = [self length];
+  NSUInteger pos = 0;
+  while (limit >= 2) {
+    NSRange rng = [self rangeOfString:separator options:0 range:NSMakeRange(pos, length - pos)];
+    if (rng.location == NSNotFound)
+      break;
+    [array addObject:[self substringWithRange:NSMakeRange(pos, rng.location - pos)]];
+    pos = rng.location + rng.length;
+  }
+  [array addObject:[self substringFromIndex:pos]];
+  return [NSArray arrayWithArray:array];
+}
+
+
+#define BADGE_RADIUS 8
+#define MIN_BADGE_WIDTH 24
+#define MIN_BADGE_HEIGHT 18
+#define BADGE_H_PADDING 8
+#define BADGE_V_PADDING 0
+- (void)drawBadgeAtPoint:(CGPoint)point {
+  UIFont *font = [UIFont boldSystemFontOfSize:14];
+  CGSize textSize = [self sizeWithFont:font];
+  CGSize badgePadding = CGSizeMake(MAX(MIN_BADGE_WIDTH - textSize.width, BADGE_H_PADDING),
+                                   MAX(MIN_BADGE_HEIGHT - textSize.height, BADGE_V_PADDING));
+  CGRect badgeRect = CGRectMake(point.x - textSize.width - badgePadding.width,
+                                point.y - (textSize.height + badgePadding.height) / 2,
+                                textSize.width + badgePadding.width,
+                                textSize.height + badgePadding.height);
+
+  CGContextRef ctx = UIGraphicsGetCurrentContext();
+  CGContextSaveGState(ctx);
+  [[UIColor lightGrayColor] set];
+  CGContextFillRoundedRect(ctx, badgeRect, BADGE_RADIUS);
+
+  CGContextRestoreGState(ctx);
+  [self drawAtPoint:CGPointMake(badgeRect.origin.x + badgePadding.width / 2, badgeRect.origin.y + badgePadding.height / 2 - 1) withFont:font];
+}
 
 
 @end

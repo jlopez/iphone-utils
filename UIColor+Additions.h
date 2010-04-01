@@ -13,5 +13,7 @@
 
 + (UIColor *)tableHeaderTextColor;
 + (UIColor *)tableHeaderShadowColor;
++ (UIColor *)groupedTableTextColor;
++ (UIColor *)blueSelectionColor;
 
 @end

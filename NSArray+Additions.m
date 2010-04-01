@@ -73,4 +73,25 @@ static NSInteger compareUsingSelector(id obj1, id obj2, void *context) {
 }
 
 
+- (NSUInteger)countOfObjectsEqualTo:(id)object {
+  NSUInteger result = 0;
+  for (id obj in self)
+    if ([obj isEqual:object])
+      result++;
+  return result;
+}
+
+
+- (NSUInteger)countOfObjectsNotEqualTo:(id)object {
+  return [self count] - [self countOfObjectsEqualTo:object];
+}
+
+
+- (id)guardedObjectAtIndex:(NSUInteger)index {
+  if (index >= [self count])
+    return nil;
+  return [self objectAtIndex:index];
+}
+
+
 @end

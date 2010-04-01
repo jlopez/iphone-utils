@@ -8,6 +8,11 @@
 
 #import "NSError+Additions.h"
 
+DEFINE_ERROR_STRING(IAErrorDomain);
+
+DEFINE_ERROR_STRING(IAErrorIANAEncodingErrorKey);
+DEFINE_ERROR_STRING(IAErrorCFEncodingErrorKey);
+DEFINE_ERROR_STRING(IAErrorBinaryDataErrorKey);
 
 @implementation NSError (JLAdditions)
 

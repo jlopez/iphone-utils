@@ -17,5 +17,8 @@
 - (id)firstObject;
 - (NSArray *)arrayByRemovingObject:(id)object;
 - (NSArray *)sortedArrayComparingSelector:(SEL)selector;
+- (NSUInteger)countOfObjectsEqualTo:(id)object;
+- (NSUInteger)countOfObjectsNotEqualTo:(id)object;
+- (id)guardedObjectAtIndex:(NSUInteger)index;
 
 @end

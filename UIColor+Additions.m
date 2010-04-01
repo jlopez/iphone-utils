@@ -20,4 +20,15 @@
   return [UIColor colorWithWhite:1 alpha:0.5];
 }
 
+
++ (UIColor *)groupedTableTextColor {
+  return [UIColor colorWithRed:0x4C/255.0 green:0x56/255.0 blue:0x6C/255.0 alpha:1];
+}
+
+
++ (UIColor *)blueSelectionColor {
+  return [UIColor colorWithRed:2/255.0 green:0x73/255.0 blue:0xED/255.0 alpha:1];
+}
+
+
 @end
