@@ -19,7 +19,9 @@
 @property (nonatomic, readonly) NSArray *indexTitles;
 @property (nonatomic, readonly) NSArray *sections;
 
-- (id)initWithArray:(NSArray *)array labelSelector:(SEL)labelSelector;
++ (id)indexedListWithArray:(NSArray *)array labelSelector:(SEL)labelSelector index:(BOOL)flag;
+
+- (id)initWithArray:(NSArray *)array labelSelector:(SEL)labelSelector index:(BOOL)flag;
 - (NSString *)labelAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForValue:(id)value;
 - (id)valueAtIndexPath:(NSIndexPath *)indexPath;

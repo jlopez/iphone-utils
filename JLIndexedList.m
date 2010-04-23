@@ -15,24 +15,29 @@
 @synthesize sections;
 
 
++ (id)indexedListWithArray:(NSArray *)array labelSelector:(SEL)labelSelector index:(BOOL)flag {
+  return [[[self alloc] initWithArray:array labelSelector:labelSelector index:flag] autorelease];
+}
+
+
 NSInteger comparingFunction(id v1, id v2, void *ctx) {
   SEL selector = (SEL)ctx;
   return [[v1 performSelector:selector] compare:[v2 performSelector:selector]];
 }
 
 
-- (id)initWithArray:(NSArray *)array labelSelector:(SEL)selector {
+- (id)initWithArray:(NSArray *)array labelSelector:(SEL)selector index:(BOOL)flag {
   if (self = [super init]) {
     labelSelector = selector;
 
     NSMutableArray *sections_ = [NSMutableArray arrayWithCapacity:26];
-    NSMutableArray *indexTitles_ = [NSMutableArray arrayWithCapacity:26];
+    NSMutableArray *indexTitles_ = flag ? [NSMutableArray arrayWithCapacity:26] : nil;
     NSMutableArray *section = nil;
     unichar currentLetter = 0;
     for (id value in [array sortedArrayUsingFunction:comparingFunction context:labelSelector]) {
       NSString *label = [value performSelector:labelSelector];
       unichar letter = [label characterAtIndex:0];
-      if (currentLetter != letter) {
+      if ((!flag && currentLetter == 0) || (flag && currentLetter != letter)) {
         if (section)
           [sections_ addObject:section];
         section = [NSMutableArray arrayWithCapacity:4];
