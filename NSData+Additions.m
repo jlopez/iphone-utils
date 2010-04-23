@@ -48,6 +48,24 @@
 }
 
 
+- (BOOL)hasPrefix:(NSData *)data {
+  NSUInteger length = [data length];
+  if ([self length] < length)
+    return NO;
+  return memcmp([self bytes], [data bytes], length) == 0;
+}
+
+
+- (BOOL)hasSuffix:(NSData *)data {
+  NSUInteger length = [data length];
+  NSUInteger myLength = [self length];
+  if (myLength < length)
+    return NO;
+  const UInt8 *ptr = [self bytes];
+  return memcmp(ptr + myLength - length, [data bytes], length) == 0;
+}
+
+
 - (NSString *)stringWithIANAEncoding:(NSString *)ianaEncoding error:(NSError **)error {
   if (ianaEncoding == nil) {
     if (error)

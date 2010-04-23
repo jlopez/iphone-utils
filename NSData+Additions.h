@@ -12,6 +12,8 @@
 @interface NSData (JLAdditions)
 
 - (NSArray *)componentsSeparatedByData:(NSData *)delimiter;
+- (BOOL)hasPrefix:(NSData *)data;
+- (BOOL)hasSuffix:(NSData *)data;
 - (NSRange)rangeOfData:(NSData *)data range:(NSRange)range;
 - (NSString *)stringWithIANAEncoding:(NSString *)ianaEncoding error:(NSError **)error;
 - (void)dumpContents;
