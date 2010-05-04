@@ -15,12 +15,22 @@
 
 
 - (NSDate *)dateValueForKey:(NSString *)key {
-  return [NSDate dateFromISO8601String:[self stringValueForKey:key]];
+  id obj = [self objectValueForKey:key];
+  if (obj == nil)
+    return nil;
+  if ([obj isKindOfClass:[NSDate class]])
+    return obj;
+  return [NSDate dateFromISO8601String:[NSString stringWithValue:obj]];
 }
 
 
 - (NSDate *)dateValueForKeyPath:(NSString *)keyPath {
-  return [NSDate dateFromISO8601String:[self stringValueForKeyPath:keyPath]];
+  id obj = [self objectValueForKeyPath:keyPath];
+  if (obj == nil)
+    return nil;
+  if ([obj isKindOfClass:[NSDate class]])
+    return obj;
+  return [NSDate dateFromISO8601String:[NSString stringWithValue:obj]];
 }
 
 
