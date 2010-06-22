@@ -17,4 +17,19 @@
 }
 
 
++ (id)barButtonWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style target:(id)target action:(SEL)action {
+  return [[[self alloc] initWithImage:image style:style target:target action:action] autorelease];
+}
+
+
++ (id)barButtonWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style target:(id)target action:(SEL)action {
+  return [[[self alloc] initWithTitle:title style:style target:target action:action] autorelease];
+}
+
+
++ (id)flexibleSpaceItem {
+  return [self barButtonWithSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+}
+
+
 @end

@@ -12,5 +12,8 @@
 @interface UIBarButtonItem (JLAdditions)
 
 + (id)barButtonWithSystemItem:(UIBarButtonSystemItem)systemItem target:(id)target action:(SEL)action;
++ (id)barButtonWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style target:(id)target action:(SEL)action;
++ (id)barButtonWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style target:(id)target action:(SEL)action;
++ (id)flexibleSpaceItem;
 
 @end
