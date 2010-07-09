@@ -20,6 +20,11 @@
 }
 
 
++ (id)indexedListWithValues:(NSArray *)values header:(NSString *)header {
+  return [[[self alloc] initWithValues:values header:header] autorelease];
+}
+
+
 NSInteger comparingFunction(id v1, id v2, void *ctx) {
   SEL selector = (SEL)ctx;
   return [[v1 performSelector:selector] compare:[v2 performSelector:selector]];
@@ -51,6 +56,16 @@ NSInteger comparingFunction(id v1, id v2, void *ctx) {
 
     sections = [sections_ retain];
     indexTitles = [indexTitles_ retain];
+  }
+  return self;
+}
+
+
+- (id)initWithValues:(NSArray *)values header:(NSString *)header {
+  if (self = [super init]) {
+    indexTitles = [[NSArray arrayWithObject:header] retain];
+    sections = [[NSArray arrayWithObject:values] retain];
+    labelSelector = @selector(description);
   }
   return self;
 }
