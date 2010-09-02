@@ -11,8 +11,10 @@
 
 @interface NSArray (JLAdditions)
 
+- (NSArray *)mapWithBlock:(id (^)(id obj))block;
 - (NSArray *)mapWithSelector:(SEL)selector;
 - (NSArray *)mapViaTarget:(id)target selector:(SEL)selector;
+- (id)findWithBlock:(BOOL (^)(id obj))block;
 - (NSArray *)arrayByRemovingNulls;
 - (id)firstObject;
 - (NSArray *)arrayByRemovingObject:(id)object;

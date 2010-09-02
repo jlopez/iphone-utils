@@ -12,6 +12,27 @@
 @implementation NSArray (JLAdditions)
 
 
+- (NSArray *)mapWithBlock:(id (^)(id obj))block {
+  NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self count]];
+  for (id object in self) {
+    id mappedValue = block(object);
+    if (mappedValue == nil)
+      mappedValue = [NSNull null];
+    [array addObject:mappedValue];
+  }
+  return [NSArray arrayWithArray:array];
+}
+
+
+- (id)findWithBlock:(BOOL (^)(id obj))block {
+  for (id object in self) {
+    if (block(object))
+      return object;
+  }
+  return nil;
+}
+
+
 - (NSArray *)mapWithSelector:(SEL)selector {
   NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self count]];
   for (id object in self) {
