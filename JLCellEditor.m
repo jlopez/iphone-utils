@@ -42,7 +42,9 @@
   CGRect leftLabelFrame = cell.textLabel.frame;
   CGRect frame = label.frame;
   CGFloat x = leftLabelFrame.origin.x + leftLabelFrame.size.width;
-  textView.frame = CGRectMake(x, frame.origin.y - 8,
+  CGFloat scale = [[UIScreen mainScreen] scale];
+  CGFloat dy = floorf(8.5 * scale) / scale;
+  textView.frame = CGRectMake(x, frame.origin.y - dy,
                               frame.origin.x - 8 + frame.size.width + 16 - x,
                               frame.size.height + 16);
   textView.text = label.text;
