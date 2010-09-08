@@ -9,6 +9,7 @@
 #import "CGGeometryAdditions.h"
 #import "JLIndexedList.h"
 #import "JLCellEditor.h"
+#import "JLKVObserver.h"
 #import "NSArray+Additions.h"
 #import "NSData+Additions.h"
 #import "NSDate+Additions.h"
