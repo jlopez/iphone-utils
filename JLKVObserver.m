@@ -17,6 +17,14 @@
 @synthesize allowNestedCalls;
 
 
+- (id)init {
+  if (self = [super init]) {
+    observingOptions = NSKeyValueObservingOptionInitial;
+  }
+  return self;
+}
+
+
 - (void)dealloc {
   [self stopObserving];
   [super dealloc];
