@@ -11,6 +11,7 @@
 
 @interface UIImage (JLAdditions)
 
+- (UIImage *)createThumbnailWithSize:(CGSize)size;
 - (void)drawTiledOnRect:(CGRect)rect;
 
 @end
